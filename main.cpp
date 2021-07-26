@@ -9,25 +9,24 @@ std::array<int, 3> find_sum(std::vector<int> in_arr, int search_sum){
 
     int sum{in_arr[0] + in_arr[1] + in_arr[2]};
 
-    int l_bound{0};
+    if (sum == search_sum){
+        return {0, 1, 2};
+    }
+
+    int l_bound{2};
     int u_bound{in_arr.size()-2};
 
-    for (int iii{l_bound}; iii < u_bound; ++iii){
+    for (int iii{l_bound}; iii <= u_bound; ++iii){
+
+        sum -= in_arr[iii-2];
+        sum += in_arr[iii+1];
 
         if (sum == search_sum){
-            return {iii, iii+1, iii+2};
+            return {iii-1, iii, iii+1};
         }
-
-        sum -= in_arr[iii-1];
-        sum += in_arr[iii+2];
     }
 
-    if (sum == search_sum){
-        return {u_bound, u_bound+1, u_bound+2};
-    }
-    else{
-        return {0, 0, 0};
-    }
+    return {0, 0, 0};
 }
 
 
