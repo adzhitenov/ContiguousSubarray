@@ -3,7 +3,7 @@
 #include <array>
 
 
-std::array<int, 3> find_sum(std::vector<int> in_arr, int search_sum){
+std::array<int, 3> find_sum(const std::vector<int>& in_arr, const int search_sum){
 
     std::array<int, 3> sum_indices{};
 
@@ -14,7 +14,7 @@ std::array<int, 3> find_sum(std::vector<int> in_arr, int search_sum){
     }
 
     int l_bound{2};
-    int u_bound{in_arr.size()-2};
+    int u_bound{static_cast<int>(in_arr.size())-2};
 
     for (int iii{l_bound}; iii <= u_bound; ++iii){
 
@@ -30,17 +30,27 @@ std::array<int, 3> find_sum(std::vector<int> in_arr, int search_sum){
 }
 
 
-void print_results(std::array<int, 3> sum_indices, std::vector<int> in_arr){
+void print_results(const std::array<int, 3>& sum_indices, const std::vector<int>& in_arr){
 
-    std::cout << "Sum found between indices " << sum_indices[0] << " and " << sum_indices[2] << '\n';
+    if (sum_indices.front()!=sum_indices.back()){
 
-    for (int index : sum_indices){
-        std::cout << in_arr[index] << ' ';
+        std::cout << "Sum found between indices " << sum_indices.front() << " and " << sum_indices.back() << ":\n";
+
+        for (int index : sum_indices){
+            std::cout << in_arr[index] << ' ';
+        }
     }
+    else
+        std::cout << "Sum was not found in the given array.";
 
     std::cout << '\n';
 }
 
+/*
+void find_sum(std::vector<int> in_arr, int search_sum){
+    std::array<int, 3> sum_indices = 
+}
+*/
 
 int main(){
 
